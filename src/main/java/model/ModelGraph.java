@@ -21,6 +21,8 @@ public class ModelGraph extends MultiGraph {
 
     private Map<String, GraphEdge> edges = new HashMap<>();
 
+    private Map<String, InteriorNode> interiors = new HashMap<>();
+
     public ModelGraph(String id) {
         super(id);
     }
@@ -29,6 +31,7 @@ public class ModelGraph extends MultiGraph {
         super(graph.id + 1);
         graph.vertices.values().forEach(this::insertVertex);
         graph.faces.values().forEach(this::insertFace);
+        graph.interiors.values().forEach(this::insertInterior);
         graph.edges.values().forEach(this::insertEdge);
     }
 
@@ -94,6 +97,29 @@ public class ModelGraph extends MultiGraph {
         insertEdge(id.concat(v2.getId()), faceNode, v2, false, "fill-color: blue;");
         insertEdge(id.concat(v3.getId()), faceNode, v3, false, "fill-color: blue;");
         return faceNode;
+    }
+
+    public InteriorNode insertInterior(InteriorNode insertInterior) {
+        Node node = this.addNode(insertInterior.getId());
+        node.setAttribute(ElementAttributes.FROZEN_LAYOUT);
+        node.setAttribute(ElementAttributes.XYZ, insertInterior.getXCoordinate(), insertInterior.getYCoordinate(), insertInterior.getZCoordinate());
+        node.addAttribute("ui.style", "fill-color: orange;");
+        interiors.put(id, insertInterior);
+        return insertInterior;
+    }
+
+    public InteriorNode insertInterior(String id, Vertex v1, Vertex v2, Vertex v3, Vertex v4) {
+        InteriorNode interiorNode = new InteriorNode(this, id, v1, v2, v3, v4);
+        Node node = this.addNode(interiorNode.getId());
+        node.setAttribute(ElementAttributes.FROZEN_LAYOUT);
+        node.setAttribute(ElementAttributes.XYZ, interiorNode.getXCoordinate(), interiorNode.getYCoordinate(), interiorNode.getZCoordinate());
+        node.addAttribute("ui.class", "important");
+        interiors.put(id, interiorNode);
+        insertEdge(id.concat(v1.getId()), interiorNode, v1, false, "fill-color: cyan;");
+        insertEdge(id.concat(v2.getId()), interiorNode, v2, false, "fill-color: cyan;");
+        insertEdge(id.concat(v3.getId()), interiorNode, v3, false, "fill-color: cyan;");
+        insertEdge(id.concat(v4.getId()), interiorNode, v4, false, "fill-color: cyan;");
+        return interiorNode;
     }
 
     public void removeFace(String id) {

@@ -88,32 +88,11 @@ public class Transform2122Closure {
 
         /* INTERNAL INSERTIONS */
 
-        // vertices
-        Vertex i1 = g.insertVertex("n8", getMiddle(v1, v2, v5, v6));
-        Vertex i2 = g.insertVertex("n9", getMiddle(v1, v2, v5, v7));
-        Vertex i3 = g.insertVertex("n10", getMiddle(v2, v3, v5, v6));
-        Vertex i4 = g.insertVertex("n11", getMiddle(v2 ,v4, v5, v7));
-
-        // edges
-        g.insertEdge("e19", i1, v1, false);
-        g.insertEdge("e20", i1, v2, false);
-        g.insertEdge("e21", i1, v5, false);
-        g.insertEdge("e22", i1, v6, false);
-
-        g.insertEdge("e23", i2, v1, false);
-        g.insertEdge("e24", i2, v2, false);
-        g.insertEdge("e25", i2, v5, false);
-        g.insertEdge("e26", i2, v7, false);
-
-        g.insertEdge("e27", i3, v2, false);
-        g.insertEdge("e28", i3, v3, false);
-        g.insertEdge("e29", i3, v5, false);
-        g.insertEdge("e30", i3, v6, false);
-
-        g.insertEdge("e31", i4, v2, false);
-        g.insertEdge("e32", i4, v4, false);
-        g.insertEdge("e33", i4, v5, false);
-        g.insertEdge("e34", i4, v7, false);
+        // interior nodes
+        g.insertInterior("i1", v1, v2, v5, v6);
+        g.insertInterior("i2", v1, v2, v5, v7);
+        g.insertInterior("i3", v2, v3, v5, v6);
+        g.insertInterior("i4", v2 ,v4, v5, v7);
 
         // faces
         g.insertFace("t16", v2, v6, v5);
@@ -122,10 +101,4 @@ public class Transform2122Closure {
         return g;
     }
 
-    private static Coordinates getMiddle(GraphNode n1, GraphNode n2, GraphNode n3, GraphNode n4) {
-        return new Coordinates(
-                (n1.getXCoordinate() + n2.getXCoordinate() + n3.getXCoordinate() + n4.getXCoordinate()) / 4,
-                (n1.getYCoordinate() + n2.getYCoordinate() + n3.getYCoordinate() + n4.getYCoordinate()) / 4,
-                (n1.getZCoordinate() + n2.getZCoordinate() + n3.getZCoordinate() + n4.getZCoordinate()) / 4);
-    }
 }

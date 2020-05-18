@@ -1,6 +1,7 @@
 package app;
 
 import model.*;
+import transform.Transform2122Closure;
 import visualization.Visualizer;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         ModelGraph graph = generateTetrahedra();
+        Transform2122Closure.transform(graph);
         Visualizer visualizer = new Visualizer(graph);
         visualizer.visualize();
     }
