@@ -95,8 +95,9 @@ public class Transform2122Closure {
         g.insertInterior("i4", v2 ,v4, v5, v7);
 
         // faces
-        g.insertFace("t16", v2, v6, v5);
         g.insertFace("t15", v2, v5, v7);
+        g.insertFace("t16", v2, v6, v5);
+        g.insertFace("t17", v2, v5, v1);
 
         return g;
     }
